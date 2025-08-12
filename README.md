@@ -1,4 +1,0 @@
-# B2W2-tracker
-A pokedex tracker for B2W2              
-
-I couldn't find a good one online so I abused what little I knew about HTML, CSS, JavaScript and Chat GPT to brute force one of my own.
