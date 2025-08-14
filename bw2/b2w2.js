@@ -1,5 +1,5 @@
 // Upload JSON file to a specific localStorage key
-function uploadLocalStorage(event, key = 'bw2Key') {
+function uploadLocalStorage(event, key = 'b2w2Key') {
   const file = event.target.files[0];
   if (!file) return;
 
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ];
 
       const TOTAL = pokedexData.length; // e.g. 301
-      window.caught = JSON.parse(localStorage.getItem("bw2Key") || "[]");
+      window.caught = JSON.parse(localStorage.getItem("b2w2Key") || "[]");
 
       const container = document.getElementById("pokedex-container");
       const fill = document.getElementById("progress-fill");
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 caught.push(r);
                 tile.classList.add("caught");
               }
-              localStorage.setItem("bw2Key", JSON.stringify(caught));
+              localStorage.setItem("b2w2Key", JSON.stringify(caught));
               updateProgress();
             });
 
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.getElementById("reset-all").addEventListener("click", () => {
         caught = [];
-        localStorage.removeItem("bw2Key");
+        localStorage.removeItem("b2w2Key");
         renderPokedex();
         updateProgress();
       });
