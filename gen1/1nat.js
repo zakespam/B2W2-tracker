@@ -1,3 +1,36 @@
+// Upload JSON file to a specific localStorage key
+function uploadLocalStorage(event, key = '1natKey') {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      // Validate it's an array
+      if (Array.isArray(data)) {
+        // Save to localStorage
+        localStorage.setItem(key, JSON.stringify(data));
+
+        // Update in-memory caught array
+        if (typeof caught !== 'undefined') caught = data;
+
+        // Re-render the UI immediately
+        if (typeof renderPokedex === 'function') renderPokedex();
+
+        // Removed success alert
+        // alert('Data restored successfully!');
+      } else {
+        alert('Invalid file: expected an array.');
+      }
+    } catch (err) {
+      alert('Error parsing file: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch('gen1nat.json')
     .then(response => response.json())
@@ -23,8 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { type: "Fairy", hex: "#D685AD" },
       ];
 
-      const TOTAL = pokedexData.length; // e.g. 151
-      let caught = JSON.parse(localStorage.getItem("1NatKey") || "[]");
+      const TOTAL = pokedexData.length; // e.g. 301
+      window.caught = JSON.parse(localStorage.getItem("1natKey") || "[]");
 
       const container = document.getElementById("pokedex-container");
       const fill = document.getElementById("progress-fill");
@@ -42,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return entry ? entry.hex : "#AAA"; // fallback gray
       }
 
-      function renderPokedex() {
+      window.renderPokedex = function() {
         container.innerHTML = "";
         const boxes = Math.ceil(TOTAL / 30);
 
@@ -64,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (caught.includes(p.regional)) tile.classList.add("caught");
 
-            // Background with 50/50 split for dual types or solid for single type
             if (p.type1 && p.type2) {
               const hex1 = getHex(p.type1);
               const hex2 = getHex(p.type2);
@@ -72,10 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (p.type1) {
               tile.style.backgroundColor = getHex(p.type1);
             } else {
-              tile.style.backgroundColor = "#AAA"; // default gray
+              tile.style.backgroundColor = "#AAA";
             }
 
-            // Static + animated sprite URLs
             const staticSprite = `../sprites/static/${String(p.ndex).padStart(3, "0")}.png`;
             const animatedSprite = `../sprites/animated/${String(p.ndex).padStart(3, "0")}.gif`;
 
@@ -84,13 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
             img.alt = p.name;
             img.onerror = () => img.src = "";
 
-            // Swap sprites on hover
-            tile.addEventListener("mouseenter", () => {
-              img.src = animatedSprite;
-            });
-            tile.addEventListener("mouseleave", () => {
-              img.src = staticSprite;
-            });
+            tile.addEventListener("mouseenter", () => { img.src = animatedSprite; });
+            tile.addEventListener("mouseleave", () => { img.src = staticSprite; });
 
             const label = document.createElement("div");
             label.className = "label";
@@ -106,8 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 caught.push(r);
                 tile.classList.add("caught");
               }
-              // Save to custom key
-              localStorage.setItem("1NatKey", JSON.stringify(caught));
+              localStorage.setItem("1natKey", JSON.stringify(caught));
               updateProgress();
             });
 
@@ -122,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.getElementById("reset-all").addEventListener("click", () => {
         caught = [];
-        localStorage.removeItem("1NatKey");
+        localStorage.removeItem("1natKey");
         renderPokedex();
         updateProgress();
       });

@@ -6,6 +6,17 @@
   <link rel="stylesheet" href="../gridStyles.css">
 </head>
 <body>
+
+<div class="hamburger-menu">
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+  
+  <div class="menu-content">
+    <button onclick="downloadLocalStorage()">Download Progress</button>
+    <input type="file" onchange="uploadLocalStorage(event)" />
+  </div>
+</div>
+
   <a href="../index.html" class="back-button">Back to Home</a>
   <h1>Black & White Regional Pokédex Tracker</h1>
   <div id="progress-container">
