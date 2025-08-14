@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch('BW2Dex.json')
+  fetch('pt.json')
     .then(response => response.json())
     .then(pokedexData => {
       const typeToHex = [
@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { type: "Fairy", hex: "#D685AD" },
       ];
 
-      const TOTAL = pokedexData.length; // e.g. 151
-      let caught = JSON.parse(localStorage.getItem("b2w2Key") || "[]");
+      const TOTAL = pokedexData.length; // e.g. 301
+      let caught = JSON.parse(localStorage.getItem("ptKey") || "[]");
 
       const container = document.getElementById("pokedex-container");
       const fill = document.getElementById("progress-fill");
@@ -76,8 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Static + animated sprite URLs
-            const staticSprite = `sprites/static/${String(p.ndex).padStart(3, "0")}.png`;
-            const animatedSprite = `sprites/animated/${String(p.ndex).padStart(3, "0")}.gif`;
+            const staticSprite = `../sprites/static/${String(p.ndex).padStart(3, "0")}.png`;
+            const animatedSprite = `../sprites/animated/${String(p.ndex).padStart(3, "0")}.gif`;
 
             const img = document.createElement("img");
             img.src = staticSprite;
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 tile.classList.add("caught");
               }
               // Save to custom key
-              localStorage.setItem("b2w2Key", JSON.stringify(caught));
+              localStorage.setItem("ptKey", JSON.stringify(caught));
               updateProgress();
             });
 
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.getElementById("reset-all").addEventListener("click", () => {
         caught = [];
-        localStorage.removeItem("b2w2Key");
+        localStorage.removeItem("ptKey");
         renderPokedex();
         updateProgress();
       });

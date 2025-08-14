@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch('DPDex.json')
+  fetch('gen2nat.json')
     .then(response => response.json())
     .then(pokedexData => {
       const typeToHex = [
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ];
 
       const TOTAL = pokedexData.length; // e.g. 151
-      let caught = JSON.parse(localStorage.getItem("caughtPokemon") || "[]");
+      let caught = JSON.parse(localStorage.getItem("2NatKey") || "[]");
 
       const container = document.getElementById("pokedex-container");
       const fill = document.getElementById("progress-fill");
@@ -76,8 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Static + animated sprite URLs
-            const staticSprite = `sprites/static/${String(p.ndex).padStart(3, "0")}.png`;
-            const animatedSprite = `sprites/animated/${String(p.ndex).padStart(3, "0")}.gif`;
+            const staticSprite = `../sprites/static/${String(p.ndex).padStart(3, "0")}.png`;
+            const animatedSprite = `../sprites/animated/${String(p.ndex).padStart(3, "0")}.gif`;
 
             const img = document.createElement("img");
             img.src = staticSprite;
@@ -106,7 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 caught.push(r);
                 tile.classList.add("caught");
               }
-              localStorage.setItem("caughtPokemon", JSON.stringify(caught));
+              // Save to custom key
+              localStorage.setItem("2NatKey", JSON.stringify(caught));
               updateProgress();
             });
 
@@ -121,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.getElementById("reset-all").addEventListener("click", () => {
         caught = [];
-        localStorage.removeItem("caughtPokemon");
+        localStorage.removeItem("2NatKey");
         renderPokedex();
         updateProgress();
       });
