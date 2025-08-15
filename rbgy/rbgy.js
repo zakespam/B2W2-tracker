@@ -31,6 +31,28 @@ function uploadLocalStorage(event, key = 'rbgyKey') {
   reader.readAsText(file);
 }
 
+function downloadLocalStorage(key = 'rbgyKey') {
+  const data = localStorage.getItem(key);
+  if (!data) {
+    alert('No data found to download.');
+    return;
+  }
+
+  const filename = `${key}.json`; // filename matches key
+
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch('rbgy.json')
     .then(response => response.json())
