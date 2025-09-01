@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monthly Bounty Tracker</title>
+  <link rel="stylesheet" href="bounty.css">
+</head>
+<body>
+
+<div class="hamburger-menu">
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+  
+  <div class="menu-content">
+    <button onclick="downloadLocalStorage()">Download Progress</button>
+    <input type="file" onchange="uploadLocalStorage(event)" />
+  </div>
+</div>
+
+  <a href="../index.html" class="back-button">Back to Home</a>
+  <h1>September Bounty Board</h1>
+  <div id="pokedex-container"></div>
+  <button id="reset-all">Reset All</button>
+  <script src="bounty.js"></script>
+  
+</body>
+</html>

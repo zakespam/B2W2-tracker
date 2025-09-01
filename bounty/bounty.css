@@ -1,0 +1,154 @@
+/* General site styling */
+body { 
+  font-family: Arial, sans-serif;
+  background: #242222;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #f3e8e8;
+  margin: 0;
+}
+
+/* Back button styling */
+.back-button {
+  display: inline-block;
+  margin: 15px;
+  padding: 0.5rem 1rem;
+  background-color: #000000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+.back-button:hover {
+  background-color: #74333a;
+}
+
+/* Pokémon group container */
+.group {
+  margin: 20px auto;
+  display: block;          /* makes each group take full width */
+  background: rgb(83, 78, 78);
+  border: 2px solid #8f8383;
+  border-radius: 8px;
+  width: fit-content;      /* keeps the box width tight around the grid */
+}
+
+/* Pokémon grid (fixed 6x5 layout) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 100px);
+  grid-template-rows: repeat(5, 100px);
+  gap: 5px;
+  padding: 10px;
+}
+
+/* Pokémon tile */
+.pokemon {
+  border: 1px solid #000000;
+  cursor: pointer;
+  background: rgb(158, 145, 145);
+  transition: filter 0.2s, transform 0.15s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Caught Pokémon look greyed out */
+.pokemon.caught {
+  filter: grayscale(100%) brightness(70%);
+}
+.pokemon.caught img {
+  filter: grayscale(100%) brightness(70%);
+}
+
+/* Hover effect */
+.pokemon:hover {
+  transform: scale(1.08);
+  filter: brightness(110%);
+  z-index: 2;
+}
+.pokemon.caught:hover {
+  filter: grayscale(100%) brightness(70%);
+}
+
+/* Smooth image changes */
+.pokemon img {
+  max-width: 100%;
+  max-height: 70%;
+  transition: opacity 0.2s ease-in-out;
+}
+.pokemon .label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: 2px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.hamburger-menu {
+  position: fixed;
+  top: px;
+  right: 10px; /* keep button top-right */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: #000000;
+  padding: 5px;
+  border-radius: 8px;
+  user-select: none;
+  position: relative; /* stays in place */
+  z-index: 1010; /* above menu content */
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.menu-content {
+  display: none;
+  flex-direction: column;
+  position: absolute; /* position independently */
+  top: 40px; /* below the button */
+  right: 0;
+  background: #575252;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  align-items: flex-start;
+  z-index: 1005;
+}
+
+.menu-content button,
+.menu-content input[type="file"] {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.menu-content button:hover {
+  background-color: #74333a;
+  color: #fff;
+}
+
+/* Show menu when checkbox is checked */
+#menu-toggle:checked + .menu-icon + .menu-content {
+  display: flex;
+}
